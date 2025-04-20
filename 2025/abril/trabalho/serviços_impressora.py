@@ -1,63 +1,102 @@
+#Vai ter que ser função para escolher def
 total = 0  # Para fazer contagem geral do usuário
+    
+    # Parte que vai fazer a primeira função
+def escolha_servico():    
+    while True:  # repete até o usuário digitar corretamente
+        try:
+            print("  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#  ")
+            print("--|      MENU DE SERVIÇOS       |--")
+            print("--|serviços do Gabriel Morozini |--")
+            print("  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#  ")
+            print("--| 1) Digitalização            |--")
+            print("--| 2) Impressão colorida       |--")
+            print("--| 3) Impressão Preto e Branco |--")
+            print("--| 4) Fotocópia                |--")
+            print("  #-----------------------------#  ")
+            
+            escolha = int(input("Digite o número do serviço que deseja:\n$_"))
+            if escolha == 1:
+                return 1.10
+            elif escolha == 2:
+                return 1.00
+            elif escolha == 3:
+                return 0.40
+            elif escolha == 4:
+                return 0.20
+            else:
+                print("Opção inválida. Escolha um número entre 1 e 4.\n")
+        except ValueError:
+            print("Entrada inválida! Por favor, digite apenas números.\n")
 
-while True:
-    print("  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  ")
-    print("--|      MENU DE SERVIÇOS       |--")
-    print("--|serviços do Gabriel Morozini |--")
-    print("  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ")
-    print("--| 1) Digitalização            |--")
-    print("--| 2) Impressão colorida       |--")
-    print("--| 3) Impressão Preto e Branco |--")
-    print("--| 4) Fotocópia                |--")
-    print("  -------------------------------  ")
+#Terminou a função de serviço e começa a quantia de páginas
+def num_pagina():
+    while True: 
+        try:
+            print("#~~~~~~~~~~~~~~~~~#-------------#~~~~~~~~~~~~~~~~#")
+            print("|     Páginas     |             |    Descontos   |")
+            print("#~~~~~~~~~~~~~~~~~#-------------#~~~~~~~~~~~~~~~~#")
+            print("| Menos que 20......................|sem desconto|")
+            print("| Menos que 200 e mais que 20.......|     15%    |")
+            print("| Menos que 2000 e mais que 200.....|     20%    |")
+            print("| Menos que 20000 e mais que 2000...|     25%    |")
+            print("#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#")
+            
+            pag = int(input("Digite o número de página:\n$_"))
+            
+            if  pag>=20000:
+               print("Excedeu o máximo de folhas!")
+               continue
+            elif pag>=2000:
+                print("Você receberá 25% de desconto")
+                return pag * 0.75
+            elif pag>=200:
+                print("Você receberá 20% de desconto")
+                return pag * 0.80
+            elif pag>=20:
+                print("Você receberá 15% de desconto")
+                return pag * 0.85
+            elif pag > 0:
+                print("Você não receberá desconto")
+                return pag
+            else:
+                print("Deve ser um valor existente para as folhas!")
+        except ValueError:
+         print("Digite um valor válido para as folhas!")
+        
+         #Terceira função agora
+def extra():
+    while True:
+        try:
+            print("#~~~~~~~~~~~~~~~~~#")
+            print("|  Serviço extra  |")
+            print("#~~~~~~~~~~~~~~~~~#")
+            print("| 1) Capa Simples |")
+            print("| 2) Capa Dura    |")
+            print("| 3) Finalizar    |")
+            print("#~~~~~~~~~~~~~~~~~#")
+            add = int(input("Digite o valor de uma opção se desejar:\n$_"))
+            if add == 1:
+             return 15.00
+            elif add == 2:
+             return 40.00
+            elif add == 3:
+             return 0
+            else:
+             print("Valor inválido, tente novamente!")
+        except ValueError:
+         print("Digite apenas números!")
+        
+        
+    #Parte do main(principal)
+try:
+    escolha = escolha_servico() # Utilizando o valor da primeira função
+    pag = num_pagina()          # Utilizando o valor da segunda função
+    add = extra()              # Utilizando o valor da terceira função
 
-    Opcoes = int(input("Escolha uma opção de serviço:\n$_ "))
+    total = (escolha * pag) + add  # Cálculo do total final
 
-    if Opcoes == 1:
-        num = int(input("Digite o número de páginas a ser digitalizada:\n$_> "))
+    print(f"Total a pagar: R$ {total:.2f}")  # Apresenta ao usuário o total a pagar
 
-        if num < 20:
-            print("Sem desconto")
-            valor = num * 1.10
-        elif num >= 20 and num < 200:
-            print("Desconto de 15%")
-            valor = num * 1.10 * 0.85
-        elif num >= 200 and num < 2000:
-            print("Desconto de 20%")
-            valor = num * 1.10 * 0.80
-        elif num >= 2000 and num < 20000:
-            print("Desconto de 25%")
-            valor = num * 1.10 * 0.75
-        else:
-            print("Máximo de páginas ultrapassado")
-            continue
-
-        total += valor
-
-    elif Opcoes == 2:
-        print("Você escolheu Impressão colorida.")
-        num = int(input("Quantas páginas deseja imprimir?\n$_> "))
-        valor = num * 1.50  # exemplo de valor
-        total += valor
-
-    elif Opcoes == 3:
-        print("Você escolheu Impressão Preto e Branco.")
-        num = int(input("Quantas páginas deseja imprimir?\n$_> "))
-        valor = num * 0.80  # exemplo de valor
-        total += valor
-
-    elif Opcoes == 4:
-        print("Você escolheu Fotocópia.")
-        num = int(input("Quantas cópias deseja fazer?\n$_> "))
-        valor = num * 0.60  # exemplo de valor
-        total += valor
-
-    else:
-        print("Opção inválida, tente novamente!")
-        continue
-
-    cont = input(f"\nO valor parcial é R${total:.2f}. Deseja mais algum serviço? (S/N): ").upper()
-    if cont != 'S' and cont !='s':
-        print(f"\nValor total a pagar: R${total:.2f}")
-        print("Obrigado por usar nossos serviços!")
-        break
+except Exception as e:
+    print("Ocorreu um erro inesperado. Por favor, tente novamente.")  # Se caso der algo errado
