@@ -34,12 +34,44 @@ def search():
     print("="*23)
     print("---| BUSCAR LIVRO |---")
     print("="*23)
-    busca = input("Digite o ID ou o autor do livro:\n>>")
-    for livro in livros:
-        if livro.ID == busca or livro.autor.lower() == busca.lower():
-            print(livro)
-            return
-    print("Livro não encontrado ou livro não cadastrado")
+    print("  --------- MENU DE BUSCA ---------   ")
+    print("#"+"-"*38+"#")
+    print(" "*7+"| 1) Buscar todos os livros |")
+    print(" "*7+"| 2) Buscar por ID          |")
+    print(" "*7+"| 3) Buscar por Autor       |")
+    print("#"+"-"*38+"#")
+
+    opcao = input("Escolha uma opção de busca:\n>> ")
+
+# Opção 1
+    if opcao == '1':
+        if not livros:
+            print("Nenhum livro encontrado ou cadastrado.")
+        else:
+            print("\nLista de Livros:")
+            for livro in livros:
+                print(livro)
+# Opção 2
+    elif opcao == '2':
+        busca_id = input("Digite o ID do livro:\n>> ")
+        for livro in livros:
+            if livro.ID == busca_id:
+                print(livro)
+                return
+        print("Livro com esse ID não encontrado.")
+    
+# Opção 3    
+    elif opcao == '3':
+        busca_autor = input("Digite o nome do autor:\n>> ")
+        encontrados = [livro for livro in livros if livro.autor.lower() == busca_autor.lower()]
+        if encontrados:
+            for livro in encontrados:
+                print(livro)
+        else:
+            print("Nenhum livro encontrado para esse autor.")
+    else:
+        print("Opção inválida. Tente novamente.")
+
 
 def remove():
     print("="*23)
